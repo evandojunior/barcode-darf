@@ -1,21 +1,10 @@
 <?php
-require_once 'vendor/autoload.php';
-//
-// use App\BarcodeRender;
-//
-// $example_one = file_get_contents('example_one.html');
-// App\BarcodeRender::parse($example_one);
-//
-// echo '<hr>';
-//
-// $example_two = file_get_contents('example_two.html');
-// App\BarcodeRender::parse($example_two);
 
 $data = array(
   'dar1' => "0734742800180", // CFDF
   'dar2' => "1568", // Cod Guia - 1566, 1568, 1549, 1317
-  'dar3' => "06", // Cota
-  'dar4' => "16/06/2017", // Data de Vencimento
+  'dar3' => "062017", // Cota
+  'dar4' => "20/06/2017", // Data de Vencimento
   'dar5' => "2017", // Referencia
   'dar6' => "", // Inscricao
   'dar7' => "", // Placa/Chassi
@@ -30,10 +19,9 @@ $data = array(
   'dar17' => "00000000000349", // Valor Total
   'Razao' => "SUPER VAREJAO DA FARTURA LTDA                                         ", // Razao Social
   'End' => "SCL/SUL QD 203 BL D LOJA 35                                           ", // Endereco
-  'pagamento' => "16/06/2017", // Data para pagamento
+  'pagamento' => "20/06/2017", // Data para pagamento
   'tributo' => "ICMS-ST - Pelas Entradas/Aquisi&ccedil;&otilde;es", // Tributo
   'observacao' => "", // Observacao da guia
   'vencido' => "0" // 0 - Nao Vencido 1 - Vencido
   );
-
-App\DarfGenerate::gerarGuia($data);
+DarfGenerate::gerarGuia($data);
