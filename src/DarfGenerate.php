@@ -18,9 +18,10 @@ class DarfGenerate
             $response = curl_exec($ch);
             $error = curl_error($ch);
             curl_close($ch);
+
             $output = self::getFormProperties($response);
             $html = self::validar($output);
-            return self::parserPDF($html);
+            self::parserPDF($html);
         } catch (\Exception $e) {
             echo '<pre>';
             print_r($e);
@@ -64,7 +65,7 @@ class DarfGenerate
     {
         $generator = new \Picqer\Barcode\BarcodeGeneratorHTML();
         $barcode = $generator->getBarcode(self::getCode($html), $generator::TYPE_INTERLEAVED_2_5, 1, 50);
-        return self::substituirCodigo($html, $barcode);
+        return self::addStyle(self::substituirCodigo($html, $barcode));
     }
 
     public static function getCode($html)
@@ -81,7 +82,7 @@ class DarfGenerate
 
     public static function parserPDF($html)
     {
-        $mpdf = new mPDF('p', 'A4', 8, "Arial", 15, 15, 10, 10, 10, 10);
+        $mpdf = new mPDF('p', 'A4', 12, "Arial", 15, 15, 10, 10, 10, 10);
         $mpdf->WriteHTML($html);
         $mpdf->Output();
     }

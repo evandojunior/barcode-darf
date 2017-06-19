@@ -1,15 +1,5 @@
 <?php
 require_once 'vendor/autoload.php';
-//
-// use App\BarcodeRender;
-//
-// $example_one = file_get_contents('example_one.html');
-// App\BarcodeRender::parse($example_one);
-//
-// echo '<hr>';
-//
-// $example_two = file_get_contents('example_two.html');
-// App\BarcodeRender::parse($example_two);
 
 $data = array(
   'dar1' => "0734742800180", // CFDF
