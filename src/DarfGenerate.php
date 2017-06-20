@@ -21,6 +21,8 @@ class DarfGenerate
 
             $output = self::getFormProperties($response);
             $html = self::validar($output);
+            // echo $html;
+            // exit();
             self::parserPDF($html);
         } catch (\Exception $e) {
             echo '<pre>';
@@ -63,9 +65,9 @@ class DarfGenerate
 
     public static function parserBarcode($html)
     {
-        $generator = new \Picqer\Barcode\BarcodeGeneratorHTML();
-        $barcode = $generator->getBarcode(self::getCode($html), $generator::TYPE_INTERLEAVED_2_5, 1, 50);
-        return self::addStyle(self::substituirCodigo($html, $barcode));
+        $generator = new \Picqer\Barcode\BarcodeGeneratorPNG();
+        $barcode = '<img width="400" height="50" src="data:image/png;base64,' . base64_encode($generator->getBarcode(self::getCode($html), $generator::TYPE_INTERLEAVED_2_5, 1, 50)) . '">';
+        return self::substituirCodigo($html, $barcode);
     }
 
     public static function getCode($html)
@@ -82,9 +84,10 @@ class DarfGenerate
 
     public static function parserPDF($html)
     {
-        $mpdf = new mPDF('p', 'A4', 12, "Arial", 15, 15, 10, 10, 10, 10);
-        $mpdf->WriteHTML($html);
-        $mpdf->Output();
+        $mpdf = new mPDF('p', 'A4', 8, "Arial", 15, 15, 16, 16, 9, 9);
+        $mpdf->SetDisplayMode('fullpage');
+        $mpdf->WriteHTML($html, 0, true, true);
+        $mpdf->Output('guia_icms.pdf', 'I');
     }
 
     public static function substituirCodigo($html, $codigo)
